@@ -13,21 +13,19 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(AppConstants.HOME_PAGE_TITLE),
       ),
-      body: SafeArea(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                  onPressed: () {
-                    // context.go("/jokes");
-                    context.pushNamed(RouteConstants.jokeRouteName);
-                  },
-                  child: const Text("Get joke list"))
-            ],
-          ),
+      body: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ElevatedButton(
+                onPressed: () {
+                  // context.go("/jokes");
+                  context.pushNamed(RouteConstants.jokeRouteName);
+                },
+                child: const Text("Get joke list"))
+          ],
         ),
       ),
     );

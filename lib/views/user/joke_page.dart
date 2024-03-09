@@ -7,14 +7,19 @@ import 'package:test_flutter/resources/widgets/async_data_list_view.dart';
 import 'package:test_flutter/routes/route_const.dart';
 import 'package:test_flutter/services/joke_service.dart';
 
-class JokePage extends ConsumerStatefulWidget {
-  const JokePage({super.key});
+class JokeScreen extends ConsumerStatefulWidget {
+  const JokeScreen({super.key});
 
   @override
-  ConsumerState<JokePage> createState() => _JokePageState();
+  ConsumerState<JokeScreen> createState() => _JokePageState();
 }
 
-class _JokePageState extends ConsumerState<JokePage> {
+class _JokePageState extends ConsumerState<JokeScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final jokes = ref.watch(jokeServiceProvider);
@@ -22,27 +27,24 @@ class _JokePageState extends ConsumerState<JokePage> {
       appBar: AppBar(
         title: Text(AppConstants.JOKE_PAGE_TITLE),
       ),
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: RefreshIndicator(
-          onRefresh: () async {
-            ref.invalidate(jokeServiceProvider);
-            // ref.refresh(jokeServiceProvider);
-          },
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text("List of joke"),
-              ),
-              AsyncDataListView(
-                  data: jokes,
-                  listTile: jokeListviewTile,
-                  providerNotifier: jokeServiceProvider.notifier),
-            ],
-          ),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          ref.invalidate(jokeServiceProvider);
+          // ref.refresh(jokeServiceProvider);
+        },
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text("List of joke"),
+            ),
+            AsyncDataListView(
+                data: jokes,
+                listTile: jokeListviewTile,
+                providerNotifier: jokeServiceProvider.notifier),
+          ],
         ),
       ),
     );
@@ -71,8 +73,8 @@ class _JokePageState extends ConsumerState<JokePage> {
         title: Text(joke.type ?? "Error"),
         onTap: () async {
           if (context.mounted) {
-            context.pushNamed("${RouteConstants.jokeRouteName}Detail",
-                extra: joke);
+            // context.pushNamed("${RouteConstants.jokeRouteName}Detail", extra: joke);
+            context.pushNamed("${RouteConstants.jokeRouteName}Add", extra: joke);
           }
           // Joke? data = await service.getJokeById(joke.id!);
           // if (data != null && context.mounted) {
