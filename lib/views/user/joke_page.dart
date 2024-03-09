@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:test_flutter/models/joke.dart';
 import 'package:test_flutter/resources/constants/constants.dart';
+import 'package:test_flutter/resources/utils/app/app_theme.dart';
 import 'package:test_flutter/resources/widgets/async_data_list_view.dart';
 import 'package:test_flutter/routes/route_const.dart';
 import 'package:test_flutter/services/joke_service.dart';
@@ -26,6 +27,23 @@ class _JokePageState extends ConsumerState<JokeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppConstants.JOKE_PAGE_TITLE),
+        actions: [
+          UnconstrainedBox(
+            child: ElevatedButton(
+              onPressed: () {
+                  context.pushNamed("${RouteConstants.jokeRouteName}Add");
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppTheme.nearlyWhite,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                elevation: 0,
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+              ),
+              child: const Icon(Icons.add),
+            ),
+          ),
+          const SizedBox(width: 10),
+        ],
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -40,10 +58,12 @@ class _JokePageState extends ConsumerState<JokeScreen> {
               padding: EdgeInsets.all(16.0),
               child: Text("List of joke"),
             ),
-            AsyncDataListView(
-                data: jokes,
-                listTile: jokeListviewTile,
-                providerNotifier: jokeServiceProvider.notifier),
+            Expanded(
+              child: AsyncDataListView(
+                  data: jokes,
+                  listTile: jokeListviewTile,
+                  providerNotifier: jokeServiceProvider.notifier),
+            ),
           ],
         ),
       ),
@@ -84,7 +104,7 @@ class _JokePageState extends ConsumerState<JokeScreen> {
         subtitle: Column(
           children: [
             Text(joke.setup ?? "Error"),
-            Text(joke.punchLine ?? "Error"),
+            Text(joke.punchline ?? "Error"),
           ],
         ),
       ),

@@ -23,7 +23,7 @@ class JokeDetailScreen extends StatelessWidget {
             children: [
               Text('Title: ${joke.type}'),
               Text('Setup: ${joke.setup}'),
-              Text('Punchline: ${joke.punchLine}'),
+              Text('Punchline: ${joke.punchline}'),
             ],
           ),
         ),

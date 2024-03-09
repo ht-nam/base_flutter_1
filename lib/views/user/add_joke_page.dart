@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:test_flutter/models/app/app_input.dart';
 import 'package:test_flutter/resources/constants/app_input_constants.dart';
 import 'package:test_flutter/resources/utils/app/app_theme.dart';
 import 'package:test_flutter/resources/widgets/rounded_input.dart';
+import 'package:test_flutter/services/joke_service.dart';
 
 import '../../models/joke.dart';
 
@@ -24,6 +26,7 @@ class _AddJokeScreenState extends ConsumerState<AddJokeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final jokeService = ref.read(jokeServiceProvider.notifier);
     return Container(
       color: AppTheme.nearlyWhite,
       child: SafeArea(
@@ -31,14 +34,24 @@ class _AddJokeScreenState extends ConsumerState<AddJokeScreen> {
         bottom: false,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text("Add Joke"),
+            title: Text(widget.joke == null ? "Add Joke" : "Edit Joke"),
           ),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               _inputView(),
               ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    final joke = widget.joke ?? Joke();
+                    final Joke? rs = await jokeService.addOrUpdate(joke);
+                    if (context.mounted && rs != null) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${joke.type} added')));
+                      await ref.refresh(jokeServiceProvider.future);
+                      context.pop();
+                    } else if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Error')));
+                    }
+                  },
                   child: const Text('Submit'),
               ),
             ],
@@ -50,6 +63,7 @@ class _AddJokeScreenState extends ConsumerState<AddJokeScreen> {
 
   List<Widget> _inputInput() {
     List<Widget> listInput = [];
+    final data = widget.joke?.toJson();
 
     for (AppInput input in AppInputConstants.jokeInputs) {
       RoundedInput roundedInput = RoundedInput(
@@ -57,7 +71,8 @@ class _AddJokeScreenState extends ConsumerState<AddJokeScreen> {
         icon: input.icon,
         textEditingController: jokeTextControllers[input.slug] ?? TextEditingController(),
       );
-      // roundedInput.textEditingController.text = '';
+      print('data: ${widget.joke}');
+      roundedInput.textEditingController.text = data?[input.slug] ?? '';
       listInput.add(roundedInput);
     }
 

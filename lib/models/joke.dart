@@ -3,14 +3,14 @@ import 'package:test_flutter/models/base.dart';
 class Joke extends Base{
   String? type;
   String? setup;
-  String? punchLine;
+  String? punchline;
 
-  Joke({int? id,this.type, this.setup, this.punchLine}) : super(id: id);
+  Joke({int? id,this.type, this.setup, this.punchline}) : super(id: id);
 
   Joke.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
       type = json["type"];
       setup = json["setup"];
-      punchLine = json["punchline"];
+      punchline = json["punchline"];
   }
 
   @override
@@ -18,11 +18,11 @@ class Joke extends Base{
     'id': id,
     'type': type,
     'setup': setup,
-    'punchline': punchLine
+    'punchline': punchline
   };
 
   @override
   String toString() {
-    return "$id - $type - $setup - $punchLine";
+    return "$id - $type - $setup - $punchline";
   }
 }

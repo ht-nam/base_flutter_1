@@ -24,7 +24,7 @@ class MyRouter{
       GoRoute(
         name: "${RouteConstants.jokeRouteName}Add",
         path: '/${RouteConstants.jokeRouteName}/add',
-        builder: (context,state) => const AddJokeScreen(),
+        builder: (context,state) => AddJokeScreen(joke: state.extra == null ? null : state.extra as Joke),
       ),
       GoRoute(
         name: "${RouteConstants.jokeRouteName}Detail",
