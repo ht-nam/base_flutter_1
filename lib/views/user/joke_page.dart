@@ -28,7 +28,7 @@ class _JokePageState extends ConsumerState<JokePage> {
           onRefresh: () async {
             ref.invalidate(jokeServiceProvider);
             // ref.refresh(jokeServiceProvider);
-            },
+          },
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,7 +37,10 @@ class _JokePageState extends ConsumerState<JokePage> {
                 padding: EdgeInsets.all(16.0),
                 child: Text("List of joke"),
               ),
-              AsyncDataListView(data: jokes, listTile: jokeListviewTile, providerNotifier: jokeServiceProvider.notifier),
+              AsyncDataListView(
+                  data: jokes,
+                  listTile: jokeListviewTile,
+                  providerNotifier: jokeServiceProvider.notifier),
             ],
           ),
         ),
@@ -46,23 +49,42 @@ class _JokePageState extends ConsumerState<JokePage> {
   }
 
   Widget jokeListviewTile(Joke joke, JokeService service) {
-    return ListTile(
-      leading: Text(joke.id.toString()),
-      title: Text(joke.type ?? "Error"),
-      onTap: () async {
-        if (context.mounted) {
-          context.pushNamed("${RouteConstants.jokeRouteName}Detail", extra: joke);
+    return Dismissible(
+      key: Key(joke.id.toString()),
+      onDismissed: (direction) async{
+        if (direction == DismissDirection.endToStart) {
+          // remove item with id = joke.id
+          bool isDelete = await service.removeById(joke.id!);
+          if (isDelete && context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${joke.id} deleted')));
+          } else if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Error')));
+          }
         }
-        // Joke? data = await service.getJokeById(joke.id!);
-        // if (data != null && context.mounted) {
-        //   context.pushNamed("${RouteConstants.jokeRouteName}Detail", extra: data);
-        // }
       },
-      subtitle: Column(
-        children: [
-          Text(joke.setup ?? "Error"),
-          Text(joke.punchLine ?? "Error"),
-        ],
+      background: Container(
+        color: Colors.red,
+        child: const Icon(Icons.delete),
+      ),
+      child: ListTile(
+        leading: Text(joke.id.toString()),
+        title: Text(joke.type ?? "Error"),
+        onTap: () async {
+          if (context.mounted) {
+            context.pushNamed("${RouteConstants.jokeRouteName}Detail",
+                extra: joke);
+          }
+          // Joke? data = await service.getJokeById(joke.id!);
+          // if (data != null && context.mounted) {
+          //   context.pushNamed("${RouteConstants.jokeRouteName}Detail", extra: data);
+          // }
+        },
+        subtitle: Column(
+          children: [
+            Text(joke.setup ?? "Error"),
+            Text(joke.punchLine ?? "Error"),
+          ],
+        ),
       ),
     );
   }

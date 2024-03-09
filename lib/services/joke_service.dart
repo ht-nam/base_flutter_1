@@ -9,7 +9,7 @@ part 'joke_service.g.dart';
 
 @riverpod
 class JokeService extends _$JokeService {
-  Future<List<Joke>> _fetchJokeList() async {
+  Future<List<Joke>> _fetchList() async {
     try {
       print('----------- getJokeList ----------');
       final url = "${ApiConstants.BASE_URL + ApiConstants.JOKE}/ten";
@@ -21,7 +21,7 @@ class JokeService extends _$JokeService {
     }
   }
 
-  Future<Joke?> getJokeById(int id) async{
+  Future<Joke?> getById(int id) async{
     try {
       print('----------- getJoke ----------');
       final url = "${ApiConstants.BASE_URL + ApiConstants.JOKE}/$id";
@@ -33,8 +33,35 @@ class JokeService extends _$JokeService {
     }
   }
 
+  Future<Joke?> addOrUpdate(Joke joke) async{
+    try {
+      print('----------- addJoke: ----------');
+      final url = ApiConstants.BASE_URL + ApiConstants.JOKE;
+      // temp api (api is not available)
+      // final response = await DioClient().post(url, data: joke.toJson());
+      // return Joke.fromJson(response as Map<String, dynamic>);
+      return Joke();
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  Future<bool> removeById(int id) async{
+    try {
+      print('----------- removeJoke: $id ----------');
+      final url = "${ApiConstants.BASE_URL + ApiConstants.JOKE}/$id";
+      // temp api (api is not available)
+      // await DioClient().delete(url);
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
+
   @override
   FutureOr<List<Joke>> build() async {
-    return _fetchJokeList();
+    return _fetchList();
   }
 }

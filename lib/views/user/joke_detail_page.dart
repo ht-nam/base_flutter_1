@@ -16,7 +16,7 @@ class JokeDetail extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text('Title: ${joke.type}'),
             Text('Setup: ${joke.setup}'),
