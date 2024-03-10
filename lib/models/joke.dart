@@ -7,6 +7,7 @@ class Joke extends Base{
 
   Joke({int? id,this.type, this.setup, this.punchline}) : super(id: id);
 
+  @override
   Joke.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
       type = json["type"];
       setup = json["setup"];

@@ -62,7 +62,8 @@ class _JokePageState extends ConsumerState<JokeScreen> {
               child: AsyncDataListView(
                   data: jokes,
                   listTile: jokeListviewTile,
-                  providerNotifier: jokeServiceProvider.notifier),
+                  providerNotifier: jokeServiceProvider.notifier,
+              ),
             ),
           ],
         ),
@@ -96,7 +97,7 @@ class _JokePageState extends ConsumerState<JokeScreen> {
             // context.pushNamed("${RouteConstants.jokeRouteName}Detail", extra: joke);
             context.pushNamed("${RouteConstants.jokeRouteName}Add", extra: joke);
           }
-          // Joke? data = await service.getJokeById(joke.id!);
+          // Joke? data = await service.getById(joke.id!);
           // if (data != null && context.mounted) {
           //   context.pushNamed("${RouteConstants.jokeRouteName}Detail", extra: data);
           // }
