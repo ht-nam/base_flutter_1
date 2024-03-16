@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:test_flutter/models/app/app_input.dart';
 import 'package:test_flutter/resources/constants/app_input_constants.dart';
 import 'package:test_flutter/resources/utils/app/app_theme.dart';
+import 'package:test_flutter/resources/widgets/base_screen/base_consumer_state.dart';
 import 'package:test_flutter/resources/widgets/rounded_input.dart';
 import 'package:test_flutter/services/joke_service.dart';
 
@@ -17,7 +18,7 @@ class AddJokeScreen extends ConsumerStatefulWidget {
   ConsumerState createState() => _AddJokeScreenState();
 }
 
-class _AddJokeScreenState extends ConsumerState<AddJokeScreen> {
+class _AddJokeScreenState extends BaseConsumerState<AddJokeScreen> {
   Map<String, TextEditingController> jokeTextControllers = {
     'title': TextEditingController(),
     'setup': TextEditingController(),
@@ -45,11 +46,15 @@ class _AddJokeScreenState extends ConsumerState<AddJokeScreen> {
                     final joke = widget.joke ?? Joke();
                     final Joke? rs = await jokeService.addOrUpdate(joke);
                     if (context.mounted && rs != null) {
+                      showLoading(context, true);
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${joke.type} added')));
                       await ref.refresh(jokeServiceProvider.future);
+                      showLoading(context, false);
                       context.pop();
                     } else if (context.mounted) {
+                      showLoading(context, true);
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Error')));
+                      showLoading(context, false);
                     }
                   },
                   child: const Text('Submit'),

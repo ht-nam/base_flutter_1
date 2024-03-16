@@ -14,12 +14,12 @@ class MyRouter{
       GoRoute(
         name: RouteConstants.homeRouteName,
         path: '/',
-        builder: (context,state) => const HomePage(),
+        builder: (context,state) => HomePage(),
       ),
       GoRoute(
         name: RouteConstants.jokeRouteName,
         path: '/${RouteConstants.jokeRouteName}',
-        builder: (context,state) => const JokeScreen(),
+        builder: (context,state) => JokeScreen(),
       ),
       GoRoute(
         name: "${RouteConstants.jokeRouteName}Add",

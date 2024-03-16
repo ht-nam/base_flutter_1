@@ -5,11 +5,12 @@ import 'package:test_flutter/models/joke.dart';
 import 'package:test_flutter/resources/constants/constants.dart';
 import 'package:test_flutter/resources/utils/app/app_theme.dart';
 import 'package:test_flutter/resources/widgets/async_data_list_view.dart';
+import 'package:test_flutter/resources/widgets/base_screen/base_consumer_widget.dart';
 import 'package:test_flutter/routes/route_const.dart';
 import 'package:test_flutter/services/joke_service.dart';
 
-class JokeScreen extends ConsumerWidget {
-  const JokeScreen({super.key});
+class JokeScreen extends BaseConsumerWidget {
+  JokeScreen({key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -38,6 +39,7 @@ class JokeScreen extends ConsumerWidget {
       body: RefreshIndicator(
         onRefresh: () async {
           ref.invalidate(jokeServiceProvider);
+          showLoadingWithDuration(context, const Duration(seconds: 1));
           // ref.refresh(jokeServiceProvider);
         },
         child: Column(

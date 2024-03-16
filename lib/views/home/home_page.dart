@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_flutter/resources/constants/constants.dart';
+import 'package:test_flutter/resources/widgets/base_screen/base_consumer_widget.dart';
 import 'package:test_flutter/routes/route_const.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends BaseConsumerWidget {
+  HomePage({key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppConstants.HOME_PAGE_TITLE),
@@ -21,7 +22,7 @@ class HomePage extends StatelessWidget {
             ElevatedButton(
                 onPressed: () {
                   // context.go("/jokes");
-                  context.pushNamed(RouteConstants.jokeRouteName);
+                  pushedName(context, RouteConstants.jokeRouteName);
                 },
                 child: const Text("Get joke list"))
           ],
