@@ -1,4 +1,4 @@
-/// RUN "dart run build_runner watch -d" IN CMD WHEN THIS SERVICE HAVE ANY CHANGE TO GENERATE RIVERPOD CODE
+/// RUN "dart run build_runner watch -d" IN CMD TO GENERATE RIVERPOD CODE
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:test_flutter/resources/utils/data_sources/dio_client.dart';
@@ -9,6 +9,11 @@ part 'joke_service.g.dart';
 
 @riverpod
 class JokeService extends _$JokeService {
+  @override
+  FutureOr<List<Joke>> build() async {
+    return _fetchList();
+  }
+
   Future<List<Joke>> _fetchList() async {
     try {
       print('----------- getJokeList ----------');
@@ -60,8 +65,4 @@ class JokeService extends _$JokeService {
     }
   }
 
-  @override
-  FutureOr<List<Joke>> build() async {
-    return _fetchList();
-  }
 }

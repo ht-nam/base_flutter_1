@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_flutter/routes/route_config.dart';
-import 'package:test_flutter/routes/route_const.dart';
-import 'package:test_flutter/views/home/home_page.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));

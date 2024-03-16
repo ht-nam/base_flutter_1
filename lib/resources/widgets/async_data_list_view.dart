@@ -38,8 +38,8 @@ class _AsyncDataListViewState extends ConsumerState<AsyncDataListView> {
       leading: Text('${modal.id}'),
       title: const Text("Title"),
       // onTap: ,
-      subtitle: Column(
-        children: const [
+      subtitle: const Column(
+        children: [
           Text("Subtitle 1"),
           Text("Subtitle 2"),
         ],

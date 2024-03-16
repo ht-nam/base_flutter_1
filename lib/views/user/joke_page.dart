@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:test_flutter/models/joke.dart';
 import 'package:test_flutter/resources/constants/constants.dart';
+import 'package:test_flutter/resources/utils/app/app_theme.dart';
 import 'package:test_flutter/resources/widgets/async_data_list_view.dart';
 import 'package:test_flutter/routes/route_const.dart';
 import 'package:test_flutter/services/joke_service.dart';
@@ -17,6 +17,23 @@ class JokeScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppConstants.JOKE_PAGE_TITLE),
+        actions: [
+          UnconstrainedBox(
+            child: ElevatedButton(
+              onPressed: () {
+                  context.pushNamed("${RouteConstants.jokeRouteName}Add");
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppTheme.nearlyWhite,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                elevation: 0,
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+              ),
+              child: const Icon(Icons.add),
+            ),
+          ),
+          const SizedBox(width: 10),
+        ],
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -35,7 +52,8 @@ class JokeScreen extends ConsumerWidget {
               child: AsyncDataListView(
                   data: jokes,
                   listTile: jokeListviewTile,
-                  providerNotifier: jokeServiceProvider.notifier),
+                  providerNotifier: jokeServiceProvider.notifier,
+              ),
             ),
           ],
         ),
@@ -69,7 +87,7 @@ class JokeScreen extends ConsumerWidget {
             // context.pushNamed("${RouteConstants.jokeRouteName}Detail", extra: joke);
             context.pushNamed("${RouteConstants.jokeRouteName}Add", extra: joke);
           }
-          // Joke? data = await service.getJokeById(joke.id!);
+          // Joke? data = await service.getById(joke.id!);
           // if (data != null && context.mounted) {
           //   context.pushNamed("${RouteConstants.jokeRouteName}Detail", extra: data);
           // }
@@ -77,7 +95,7 @@ class JokeScreen extends ConsumerWidget {
         subtitle: Column(
           children: [
             Text(joke.setup ?? "Error"),
-            Text(joke.punchLine ?? "Error"),
+            Text(joke.punchline ?? "Error"),
           ],
         ),
       ),

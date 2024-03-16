@@ -7,9 +7,9 @@ import 'package:test_flutter/models/app/app_input.dart';
 class AppInputConstants {
   static List<AppInput> jokeInputs = [
     AppInput(
-      hint: "Input title",
-      icon: const IconData(0xe668, fontFamily: 'MaterialIcons'),
-      slug: 'title',
+      hint: "Input type",
+      icon: const IconData(0xf07d0, fontFamily: 'MaterialIcons'),
+      slug: 'type',
     ),
     AppInput(
       hint: "Input setup",
@@ -19,7 +19,7 @@ class AppInputConstants {
     AppInput(
       hint: "Input punchline",
       icon: const IconData(0xe59d, fontFamily: 'MaterialIcons', matchTextDirection: true),
-      slug: 'punchLine',
+      slug: 'punchline',
     ),
   ];
 }
