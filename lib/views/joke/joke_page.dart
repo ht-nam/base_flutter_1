@@ -63,7 +63,7 @@ class JokeScreen extends ConsumerWidget {
 
   Widget jokeListviewTile(BuildContext context,Joke joke, JokeService service) {
     return Dismissible(
-      key: Key(joke.id.toString()),
+      key: UniqueKey(),
       onDismissed: (direction) async{
         if (direction == DismissDirection.endToStart) {
           // remove item with id = joke.id

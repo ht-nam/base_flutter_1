@@ -2,9 +2,9 @@ import 'package:go_router/go_router.dart';
 import 'package:test_flutter/models/joke.dart';
 import 'package:test_flutter/routes/route_const.dart';
 import 'package:test_flutter/views/home/home_page.dart';
-import 'package:test_flutter/views/user/add_joke_page.dart';
-import 'package:test_flutter/views/user/joke_detail_page.dart';
-import 'package:test_flutter/views/user/joke_page.dart';
+import 'package:test_flutter/views/joke/add_joke_page.dart';
+import 'package:test_flutter/views/joke/joke_detail_page.dart';
+import 'package:test_flutter/views/joke/joke_page.dart';
 
 class MyRouter{
   static String initialLocation = "/";

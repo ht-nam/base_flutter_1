@@ -2,29 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_flutter/models/base.dart';
 
-class AsyncDataListView extends ConsumerStatefulWidget {
+class AsyncDataListView extends ConsumerWidget {
   const AsyncDataListView({super.key, required this.data, this.listTile, this.providerNotifier});
   final AsyncValue data;
   final Function? listTile;
   final Refreshable? providerNotifier;
 
   @override
-  ConsumerState createState() => _AsyncDataListViewState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final service = ref.read(providerNotifier as ProviderListenable);
 
-class _AsyncDataListViewState extends ConsumerState<AsyncDataListView> {
-
-  @override
-  Widget build(BuildContext context) {
-    final service = ref.read(widget.providerNotifier as ProviderListenable);
-
-    return widget.data.when(
+    return data.when(
       data: (data) => ListView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         padding: const EdgeInsets.all(8),
         itemCount: data.length ?? 0,
-        itemBuilder: (_, index) => widget.listTile != null ? widget.listTile!(context, data[index], service) : listviewTile(data[index]),
+        itemBuilder: (_, index) => listTile != null ? listTile!(context, data[index], service) : listviewTile(data[index]),
       ),
       error: (error, stackTrace) => Center(child: Text("Error: $error")),
       loading: () => const Center(
