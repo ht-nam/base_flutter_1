@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -7,21 +8,11 @@ import 'package:test_flutter/resources/widgets/async_data_list_view.dart';
 import 'package:test_flutter/routes/route_const.dart';
 import 'package:test_flutter/services/joke_service.dart';
 
-class JokeScreen extends ConsumerStatefulWidget {
+class JokeScreen extends ConsumerWidget {
   const JokeScreen({super.key});
 
   @override
-  ConsumerState<JokeScreen> createState() => _JokePageState();
-}
-
-class _JokePageState extends ConsumerState<JokeScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final jokes = ref.watch(jokeServiceProvider);
     return Scaffold(
       appBar: AppBar(
@@ -40,17 +31,19 @@ class _JokePageState extends ConsumerState<JokeScreen> {
               padding: EdgeInsets.all(16.0),
               child: Text("List of joke"),
             ),
-            AsyncDataListView(
-                data: jokes,
-                listTile: jokeListviewTile,
-                providerNotifier: jokeServiceProvider.notifier),
+            Expanded(
+              child: AsyncDataListView(
+                  data: jokes,
+                  listTile: jokeListviewTile,
+                  providerNotifier: jokeServiceProvider.notifier),
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget jokeListviewTile(Joke joke, JokeService service) {
+  Widget jokeListviewTile(BuildContext context,Joke joke, JokeService service) {
     return Dismissible(
       key: Key(joke.id.toString()),
       onDismissed: (direction) async{

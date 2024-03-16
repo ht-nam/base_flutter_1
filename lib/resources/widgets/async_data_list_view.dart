@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_flutter/models/base.dart';
-import 'package:test_flutter/services/joke_service.dart';
 
 class AsyncDataListView extends ConsumerStatefulWidget {
   const AsyncDataListView({super.key, required this.data, this.listTile, this.providerNotifier});
@@ -25,7 +24,7 @@ class _AsyncDataListViewState extends ConsumerState<AsyncDataListView> {
         shrinkWrap: true,
         padding: const EdgeInsets.all(8),
         itemCount: data.length ?? 0,
-        itemBuilder: (_, index) => widget.listTile != null ? widget.listTile!(data[index], service) : listviewTile(data[index]),
+        itemBuilder: (_, index) => widget.listTile != null ? widget.listTile!(context, data[index], service) : listviewTile(data[index]),
       ),
       error: (error, stackTrace) => Center(child: Text("Error: $error")),
       loading: () => const Center(
