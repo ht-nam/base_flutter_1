@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_flutter/resources/constants/constants.dart';
 
 class AppTheme {
   AppTheme._();
@@ -38,77 +39,87 @@ class AppTheme {
   static const Color headerLineBackground2 = Color(0xff00aeef);
   static const Color headerLineBackground3 = Color(0xff23aae1);
   static const TextTheme textTheme = TextTheme(
-    headline4: display1,
-    headline5: headline,
-    headline6: title,
-    subtitle2: subtitle,
-    bodyText2: body2,
-    bodyText1: body1,
-    caption: caption,
+    headlineMedium: headlineMedium,
+    headlineSmall: headlineSmall,
+    titleLarge: titleLarge,
+    titleMedium: titleMedium,
+    titleSmall: titleSmall,
+    bodySmall: bodySmall,
+    bodyMedium: bodyMedium,
+    bodyLarge: bodyLarge,
   );
 
-  static const TextStyle display1 = TextStyle(
-    // h4 -> display1
+  static const TextStyle headlineMedium = TextStyle(
+    // h4
     // fontFamily: fontName,
     fontWeight: FontWeight.bold,
-    fontSize: 36,
+    fontSize: AppSettingConstants.FONT_SIZE_MEDIUM + 0,
     letterSpacing: 0.4,
     height: 0.9,
     color: darkerText,
   );
 
-  static const TextStyle headline = TextStyle(
-    // h5 -> headline
+  static const TextStyle headlineSmall = TextStyle(
+    // h5
     // fontFamily: fontName,
     fontWeight: FontWeight.bold,
-    fontSize: 24,
+    fontSize: AppSettingConstants.FONT_SIZE_SMALL + 0,
     letterSpacing: 0.27,
     color: darkerText,
   );
 
-  static const TextStyle title = TextStyle(
-    // h6 -> title
+  static const TextStyle titleLarge = TextStyle(
+    // h6
     // fontFamily: fontName,
     fontWeight: FontWeight.bold,
-    fontSize: 16,
+    fontSize: AppSettingConstants.FONT_SIZE_LARGE + 0,
     letterSpacing: 0.18,
     color: darkerText,
   );
 
-  static const TextStyle subtitle = TextStyle(
+  static const TextStyle titleMedium = TextStyle(
+    // h6
+    // fontFamily: fontName,
+    fontWeight: FontWeight.bold,
+    fontSize: AppSettingConstants.FONT_SIZE_MEDIUM + 0,
+    letterSpacing: 0.18,
+    color: darkerText,
+  );
+
+  static const TextStyle titleSmall = TextStyle(
     // subtitle2 -> subtitle
     // fontFamily: fontName,
     fontWeight: FontWeight.w400,
-    fontSize: 14,
+    fontSize: AppSettingConstants.FONT_SIZE_SMALL + 0,
     letterSpacing: -0.04,
     color: darkText,
   );
 
-  static const TextStyle body2 = TextStyle(
-    // body1 -> body2
-    // fontFamily: fontName,
-    fontWeight: FontWeight.w400,
-    fontSize: 14,
-    letterSpacing: 0.2,
-    color: darkText,
-  );
-
-  static const TextStyle body1 = TextStyle(
-    // body2 -> body1
-    // fontFamily: fontName,
-    fontWeight: FontWeight.w400,
-    fontSize: 16,
-    letterSpacing: -0.05,
-    color: darkText,
-  );
-
-  static const TextStyle caption = TextStyle(
+  static const TextStyle bodySmall = TextStyle(
     // Caption -> caption
     // fontFamily: fontName,
     fontWeight: FontWeight.w400,
-    fontSize: 12,
+    fontSize: AppSettingConstants.FONT_SIZE_SMALL + 0,
     letterSpacing: 0.2,
     color: lightText, // was lightText
+  );
+
+  static const TextStyle bodyMedium = TextStyle(
+    // body1 -> body2
+    // fontFamily: fontName,
+    fontWeight: FontWeight.w400,
+    fontSize: AppSettingConstants.FONT_SIZE_MEDIUM + 0,
+    letterSpacing: 0.2,
+    color: darkText,
+  );
+
+  static const TextStyle bodyLarge = TextStyle(
+    // body2 -> body1
+    // fontFamily: fontName,
+    fontWeight: FontWeight.w400,
+    fontSize: AppSettingConstants.FONT_SIZE_LARGE + 0,
+    letterSpacing: -0.05,
+    color: darkText,
   );
 }
 

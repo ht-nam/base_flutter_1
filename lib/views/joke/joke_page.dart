@@ -17,7 +17,7 @@ class JokeScreen extends BaseConsumerWidget {
     final jokes = ref.watch(jokeServiceProvider);
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppConstants.JOKE_PAGE_TITLE),
+        title: const Text(AppConstants.JOKE_PAGE_TITLE),
         actions: [
           UnconstrainedBox(
             child: ElevatedButton(

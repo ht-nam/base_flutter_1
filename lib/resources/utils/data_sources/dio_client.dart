@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:test_flutter/resources/constants/constants.dart';
 import 'package:test_flutter/resources/utils/data_sources/local.dart';
 import 'package:test_flutter/models/exceptions/api_exception.dart';
 
@@ -19,7 +20,7 @@ class DioClient {
 
   Interceptor _authInterceptor() {
     return InterceptorsWrapper(onRequest: (request, handler) async {
-      final token = await SharedPre.getItem("access_token");
+      final token = (await SharedPre.instance).getString(SharedPrefsConstants.ACCESS_TOKEN_KEY);
       request.headers.addAll({"Authorization": 'Bearer $token', "Accept": 'application/json'});
       return handler.next(request);
     });

@@ -1,10 +1,13 @@
 import 'dart:async';
-import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:test_flutter/resources/utils/app/app_theme.dart';
 import 'package:test_flutter/resources/widgets/base_screen/loading_view.dart';
+import 'package:test_flutter/services/app_setting_service.dart';
 
 mixin BaseScreen {
   LoadingView? loadingView;
@@ -83,5 +86,45 @@ mixin BaseScreen {
         builder: (builder) {
           return child;
         });
+  }
+
+  void showSuccessToast(String msg) {
+    Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        timeInSecForIosWeb: 3,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
+
+  void showErrorToast(String msg) {
+    Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.TOP,
+      timeInSecForIosWeb: 3,
+      backgroundColor: Colors.deepOrangeAccent,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  }
+
+  void showAlertDialog(BuildContext context, WidgetRef ref, String content) {
+    final appSetting = ref.read(appSettingServiceProvider.notifier);
+    showCupertinoDialog(
+      context: context,
+      builder: (context) => CupertinoAlertDialog(
+        content: Text(content,
+            style: TextStyle(fontSize: appSetting.fontSize)),
+        actions: <Widget>[
+          CupertinoDialogAction(
+            child: Text('OK', style: TextStyle(fontSize: appSetting.fontSize)),
+            onPressed: () => Navigator.of(context).pop(true),
+          ),
+        ],
+      ),
+    );
   }
 }

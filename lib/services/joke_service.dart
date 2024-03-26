@@ -17,7 +17,7 @@ class JokeService extends _$JokeService {
   Future<List<Joke>> _fetchList() async {
     try {
       print('----------- getJokeList ----------');
-      final url = "${ApiConstants.BASE_URL + ApiConstants.JOKE}/ten";
+      const url = "${ApiConstants.BASE_URL + ApiConstants.JOKE}/ten";
       final response = await DioClient().get(url);
       return List.from(response.data!.map((e) => Joke.fromJson(e as Map<String, dynamic>)).toList());
     } catch (e) {
@@ -41,7 +41,7 @@ class JokeService extends _$JokeService {
   Future<Joke?> addOrUpdate(Joke joke) async{
     try {
       print('----------- addJoke: ----------');
-      final url = ApiConstants.BASE_URL + ApiConstants.JOKE;
+      const url = ApiConstants.BASE_URL + ApiConstants.JOKE;
       // temp api (api is not available)
       // final response = await DioClient().post(url, data: joke.toJson());
       // return Joke.fromJson(response as Map<String, dynamic>);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test_flutter/resources/utils/app/app_theme.dart';
 import 'package:test_flutter/routes/route_config.dart';
 
 void main() {
@@ -18,6 +19,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        primaryColor: AppTheme.grey,
+        textTheme: AppTheme.textTheme,
       ),
       routerConfig: MyRouter().router,
       // home: const HomePage(),

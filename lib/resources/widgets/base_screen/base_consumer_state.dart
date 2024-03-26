@@ -1,9 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_flutter/resources/widgets/base_screen/base_screen.dart';
-import 'package:test_flutter/resources/widgets/base_screen/loading_view.dart';
 
 abstract class BaseConsumerState<T extends ConsumerStatefulWidget> extends ConsumerState<T> with BaseScreen{
   AppLifecycleState? appLifecycleState;
