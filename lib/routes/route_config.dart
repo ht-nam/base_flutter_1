@@ -1,5 +1,10 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:test_flutter/models/joke.dart';
+import 'package:test_flutter/resources/constants/constants.dart';
+import 'package:test_flutter/resources/utils/data_sources/local.dart';
 import 'package:test_flutter/routes/route_const.dart';
 import 'package:test_flutter/views/home/home_page.dart';
 import 'package:test_flutter/views/joke/add_joke_page.dart';
@@ -15,6 +20,7 @@ class MyRouter{
         name: RouteConstants.homeRouteName,
         path: '/',
         builder: (context,state) => HomePage(),
+        // redirect: isAuthenticated
       ),
       GoRoute(
         name: RouteConstants.jokeRouteName,
@@ -33,5 +39,12 @@ class MyRouter{
       ),
     ],
   );
+
+  FutureOr<String?> isAuthenticated(BuildContext context, GoRouterState route) async {
+    if ((await SharedPre.instance).getString(SharedPrefsConstants.ACCESS_TOKEN_KEY) == null) {
+      return '/login';
+    }
+    return null;
+  }
 
 }

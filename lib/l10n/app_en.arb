@@ -1,0 +1,9 @@
+{
+  "language": "English",
+  "@language": {
+    "description": "Current language of the application"
+  },
+
+  "getJokeList": "Get joke list"
+
+}

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test_flutter/l10n/l10n.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:test_flutter/resources/utils/app/app_theme.dart';
 import 'package:test_flutter/routes/route_config.dart';
 
@@ -22,6 +24,9 @@ class MyApp extends StatelessWidget {
         primaryColor: AppTheme.grey,
         textTheme: AppTheme.textTheme,
       ),
+      supportedLocales: L10n.all,
+      locale: const Locale('en'),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
       routerConfig: MyRouter().router,
       // home: const HomePage(),
     );
